@@ -83,6 +83,7 @@ void bubble_sort(Cont& cont, Comp& comp) {
 	}
 }
 
+//Create Function Object (Functor) 
 struct Comp1 {
 	bool operator()(int a, int b) { return a > b; }
 };
