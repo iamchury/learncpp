@@ -9,7 +9,9 @@ class Vector {
 
 public:
 	//constructor
-	Vector(int n = 1) : data(new T[n]), capacity(n), length(0) {}
+	Vector(int n = 1) : data(new T[n]), capacity(n), length(0) {
+		std::cout << "Constructor: init number :" << n << std::endl;
+	}
 
 	~Vector() {
 		if (data) {
@@ -54,7 +56,7 @@ public:
 
 int main() {
 	// Create a vector to save data
-	Vector<int> int_vec;
+	Vector<int> int_vec(3);
 
 	int_vec.push_back(3);
 	int_vec.push_back(2);
