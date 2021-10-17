@@ -28,9 +28,9 @@ struct Ratio_add : _Ratio_add<R1, R2>::type {};
 
 int main()
 {
-	typedef Ratio<2, 3> rat;
-	typedef Ratio<3, 2> rat2;
-	typedef Ratio_add<rat, rat2> rat3;
+	using rat = Ratio<2, 3>;
+	using rat2 = Ratio<3, 2>;
+	using rat3 = Ratio_add<rat, rat2>;
 
 	std::cout << rat3::num << " / " << rat3::den << std::endl;
 
