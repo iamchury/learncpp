@@ -69,6 +69,10 @@ struct _is_prime<three> {
 	static const bool result = true;
 };
 
+// recursive template을 종료하는 구문. result는 true 또는 false를 return한다. 
+//struct check_div<N, typename divide<N, two>::result_type> 에서 typename divide<N, two> 의 사용은,
+// template specialization에 맞는 조건을 만들기 위해서 사용되는 것이다. 
+// 내부 계산에서는 전혀 사용되지 않는다. 
 template <typename N>
 struct check_div<N, typename divide<N, two>::result_type> {
 	static const bool result = (N::num % (N::num / 2) == 0);
