@@ -17,7 +17,7 @@ private:
 	const static int _gcd = GCD<N, D>::value;
 
 public:
-	typedef Ratio<N / _gcd, D / _gcd> type;
+	typedef Ratio<N / _gcd, D / _gcd> type; // 결과값이 저장된다. 
 	static const int num = N / _gcd; // Numerator
 	static const int den = D / _gcd; // Denominator
 
@@ -69,6 +69,7 @@ public:
 	}
 };
 
+// nested inheritance. 
 // without public, it can't access. 
 class ford : public Vehicle::sub_veh {};
 class car : public Vehicle {};
