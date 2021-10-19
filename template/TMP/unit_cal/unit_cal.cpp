@@ -37,6 +37,8 @@ int main()
 
 }
 #else
+#include <iostream>
+#include <typeinfo>
 
 template <int X, int Y>
 struct GCD {
@@ -99,7 +101,6 @@ struct Dim {
 	using type = Dim<M, L, T>;
 };
 
-#if 0
 template <typename U, typename V>
 struct add_dim_ {
 	typedef Dim<typename Ratio_add<typename U::M, typename V::M>::type,
@@ -115,7 +116,6 @@ struct subtract_dim_ {
 		typename Ratio_subtract<typename U::T, typename V::T>::type>
 		type;
 };
-#endif
 
 template <typename T, typename D>
 struct quantity {
@@ -130,22 +130,45 @@ struct quantity {
 		return quantity<T, D>(q - quant.q);
 	}
 
+	template <typename D2>
+	quantity<T, typename add_dim_<D, D2>::type> operator*(quantity<T, D2> quant) {
+		return quantity<T, typename add_dim_<D, D2>::type>(q * quant.q);
+	}
+
+	template <typename D2>
+	quantity<T, typename subtract_dim_<D, D2>::type> operator/(
+		quantity<T, D2> quant) {
+		return quantity<T, typename subtract_dim_<D, D2>::type>(q / quant.q);
+	}
+
+	// Scalar multiplication and division
+	quantity<T, D> operator*(T scalar) { return quantity<T, D>(q * scalar); }
+
+	quantity<T, D> operator/(T scalar) { return quantity<T, D>(q / scalar); }
+
 	quantity(T q) : q(q) {}
 };
+
+template <typename T, typename D>
+std::ostream& operator<<(std::ostream& out, const quantity<T, D>& q) {
+	out << q.q << "kg^" << D::M::num / D::M::den << "m^" << D::L::num / D::L::den
+		<< "s^" << D::T::num / D::T::den;
+
+	return out;
+}
+
 int main() {
 	using one = Ratio<1, 1>;
 	using zero = Ratio<0, 1>;
 
-	quantity<double, Dim<one, zero, zero>> kg(1);
-	quantity<double, Dim<zero, one, zero>> meter(1);
+	quantity<double, Dim<one, zero, zero>> kg(2);
+	quantity<double, Dim<zero, one, zero>> meter(3);
 	quantity<double, Dim<zero, zero, one>> second(1);
 
-	// Good
-	kg + kg;
-
-	// Bad
-	// kg + meter;
-	std::cout << "compile has been done successfully! " << std::endl;
+	// F 의 타입은 굳이 알필요 없다!
+	auto F = kg * meter / (second * second);
+	std::cout << "2 kg 물체를 3m/s^2 의 가속도로 밀기 위한 힘의 크기는? " << F
+		<< std::endl;
 }
 #endif
 
