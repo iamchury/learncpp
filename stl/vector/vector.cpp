@@ -39,7 +39,7 @@ void print_vector(std::vector<T>& vec) {
 	{
 		std::cout << *iter << " ";
 	}
-	std::cout << "]";
+	std::cout << "]" << std::endl;
 }
 
 void vec_ex3()
@@ -71,23 +71,49 @@ void vec_ex4()
 	vec.push_back(30);
 	vec.push_back(40);
 
+	std::cout << std::endl;
 	std::cout << "처음 벡터 상태" << std::endl;
 	print_vector(vec);
 	std::cout << "----------------------------" << std::endl;
 
-	std::vector<int>::iterator itr = vec.begin();
-	//std::vector<int>::iterator end_itr = vec.end();
-
-	for (; itr != vec.end(); ++itr) {  // runtime error will happen. ++itr tried to increase past end. 
-		if (*itr == 20) {
-			vec.erase(itr); // after earse an element, vec_end() is updated. 
-			itr = vec.begin();
+	for (int i = 0; i < vec.size(); i++)
+	{
+		std::vector<int>::iterator iter = vec.begin() + i;
+		if (*iter == 20)
+		{
+			vec.erase(vec.begin() + i);
+			i--;
 		}
 	}
 
 	std::cout << "값이 20인 원소들을 지운다" << std::endl;
 	std::cout << "----------------------------" << std::endl;
+	print_vector(vec);
+}
 
+void vec_ex5(){
+	std::vector<int> vec;
+	vec.push_back(10);
+	vec.push_back(20);
+	vec.push_back(30);
+	vec.push_back(40);
+
+	std::cout << "초기 vec 상태" << std::endl;
+	print_vector(vec);
+
+	// itr 은 vec[2] 를 가리킨다.
+	std::vector<int>::iterator itr = vec.begin() + 2;
+
+	// vec[2] 의 값을 50으로 바꾼다.
+	*itr = 50;
+
+	std::cout << "---------------" << std::endl;
+	print_vector(vec);
+
+	std::vector<int>::const_iterator citr = vec.cbegin() + 2;
+
+	// 상수 반복자가 가리키는 값은 바꿀수 없다. 불가능!
+	*citr = 30;  // compile error.
 }
 
 int main()
@@ -96,6 +122,7 @@ int main()
 	vec_ex2();
 	vec_ex3();
 	vec_ex4();
+	vec_ex5();
 
 	return 1;
 }
