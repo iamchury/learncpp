@@ -113,9 +113,28 @@ void vec_ex5(){
 	std::vector<int>::const_iterator citr = vec.cbegin() + 2;
 
 	// 상수 반복자가 가리키는 값은 바꿀수 없다. 불가능!
-	*citr = 30;  // compile error.
+	// *citr = 30;  // compile error.
 }
 
+void vec_ex6() {
+	std::vector<int> vec;
+
+	vec.push_back(10);
+	vec.push_back(20);
+	vec.push_back(30);
+	vec.push_back(40);
+
+	std::cout << "초기 vec 상태" << std::endl;
+	print_vector(vec);
+
+	std::cout << "역으로 vec 출력하기!" << std::endl;
+	std::cout << "[ ";
+	for (std::vector<int>::reverse_iterator r_iter = vec.rbegin(); r_iter != vec.rend(); ++r_iter) {
+		std::cout << *r_iter << " ";
+	}
+	std::cout << "] " << std::endl;
+
+}
 int main()
 {
 	vec_ex1();
@@ -123,6 +142,7 @@ int main()
 	vec_ex3();
 	vec_ex4();
 	vec_ex5();
+	vec_ex6(); //reverse iterator. 
 
 	return 1;
 }
