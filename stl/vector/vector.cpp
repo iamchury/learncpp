@@ -135,6 +135,21 @@ void vec_ex6() {
 	std::cout << "] " << std::endl;
 
 }
+void vec_ex7() {
+	std::vector<int> vec;
+
+	vec.push_back(1);
+	vec.push_back(2);
+	vec.push_back(3);
+
+	//끝에서부터 출력하기
+	// 무한 loop가 발생한다는 warning이 있음. 컴파일러가 똑똑함.
+	// size_type = size_t = unsinged int, 즉 0 보다 작을 수 없다. 0 ~ 429496725
+	for (std::vector<int>::size_type i = vec.size() - 1; i >= 0; i--) {
+		std::cout << vec[i] << std::endl;
+	}
+
+}
 int main()
 {
 	vec_ex1();
@@ -143,6 +158,7 @@ int main()
 	vec_ex4();
 	vec_ex5();
 	vec_ex6(); //reverse iterator. 
+	vec_ex7(); //print element in reverse. error in runtime.
 
 	return 1;
 }
