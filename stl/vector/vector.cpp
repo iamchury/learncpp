@@ -76,7 +76,7 @@ void vec_ex4()
 	print_vector(vec);
 	std::cout << "----------------------------" << std::endl;
 
-	for (int i = 0; i < vec.size(); i++)
+	for (unsigned int i = 0; i < vec.size(); i++)
 	{
 		std::vector<int>::iterator iter = vec.begin() + i;
 		if (*iter == 20)
@@ -135,6 +135,8 @@ void vec_ex6() {
 	std::cout << "] " << std::endl;
 
 }
+#include <typeinfo>
+
 void vec_ex7() {
 	std::vector<int> vec;
 
@@ -143,11 +145,46 @@ void vec_ex7() {
 	vec.push_back(3);
 
 	//끝에서부터 출력하기
-	// 무한 loop가 발생한다는 warning이 있음. 컴파일러가 똑똑함.
-	// size_type = size_t = unsinged int, 즉 0 보다 작을 수 없다. 0 ~ 429496725
-	for (std::vector<int>::size_type i = vec.size() ; i > 0; i--) {
-		std::cout << vec[i -1] << std::endl;
+	//for (std::vector<int>::reverse_iterator i = vec.rbegin(); i != vec.rend(); ++i) {
+	for (auto i = vec.rbegin(); i != vec.rend(); ++i) {
+		std::cout<< typeid(i).name() << std::endl;
+		std::cout << *i << std::endl;
 	}
+
+}
+
+void vec_ex8()
+{
+	std::vector<int> vec;
+
+	vec.push_back(1);
+	vec.push_back(2);
+	vec.push_back(3);
+	vec.emplace_back(4);
+	// range-based for 문
+	for (int elem : vec) {
+		std::cout << "원소 : " << elem << std::endl;
+	}
+
+}
+
+template <typename T> 
+void print_vector_range_based(std::vector<T>& vec)
+{
+	for (const auto& elem : vec) {
+		std::cout << "원소 : " << elem << std::endl;
+	}
+}
+void vec_ex9()
+{
+	std::vector<int> vec;
+
+	vec.push_back(1);
+	vec.push_back(2);
+	vec.push_back(3);
+	vec.push_back(4);
+	// range-based for 문
+	print_vector_range_based(vec);
 
 }
 int main()
@@ -159,6 +196,8 @@ int main()
 	vec_ex5();
 	vec_ex6(); //reverse iterator. 
 	vec_ex7(); //print element in reverse. error in runtime.
+	vec_ex8(); //range_based for loop
+	vec_ex9();
 
 	return 1;
 }
