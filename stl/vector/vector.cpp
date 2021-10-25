@@ -145,8 +145,8 @@ void vec_ex7() {
 	//끝에서부터 출력하기
 	// 무한 loop가 발생한다는 warning이 있음. 컴파일러가 똑똑함.
 	// size_type = size_t = unsinged int, 즉 0 보다 작을 수 없다. 0 ~ 429496725
-	for (std::vector<int>::size_type i = vec.size() - 1; i >= 0; i--) {
-		std::cout << vec[i] << std::endl;
+	for (std::vector<int>::size_type i = vec.size() ; i > 0; i--) {
+		std::cout << vec[i -1] << std::endl;
 	}
 
 }
