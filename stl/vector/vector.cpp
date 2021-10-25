@@ -34,10 +34,12 @@ void vec_ex2() {
 
 template <typename T>
 void print_vector(std::vector<T>& vec) {
+	std::cout << "[ ";
 	for (typename std::vector<T>::iterator iter = vec.begin(); iter != vec.end(); ++iter)
 	{
-		std::cout << *iter << std::endl;
+		std::cout << *iter << " ";
 	}
+	std::cout << "]";
 }
 
 void vec_ex3()
@@ -74,11 +76,12 @@ void vec_ex4()
 	std::cout << "----------------------------" << std::endl;
 
 	std::vector<int>::iterator itr = vec.begin();
-	std::vector<int>::iterator end_itr = vec.end();
+	//std::vector<int>::iterator end_itr = vec.end();
 
-	for (; itr != end_itr; ++itr) {  // runtime error will happen. ++itr tried to increase past end. 
+	for (; itr != vec.end(); ++itr) {  // runtime error will happen. ++itr tried to increase past end. 
 		if (*itr == 20) {
 			vec.erase(itr); // after earse an element, vec_end() is updated. 
+			itr = vec.begin();
 		}
 	}
 
