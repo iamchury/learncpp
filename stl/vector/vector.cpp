@@ -185,7 +185,15 @@ void vec_ex9()
 	vec.push_back(4);
 	// range-based for ¹®
 	print_vector_range_based(vec);
-
+	try {
+		std::cout << "value at 0: " << vec.at(0) << std::endl;
+		std::cout << "value at 5: " << vec.at(5) << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	
 }
 int main()
 {
