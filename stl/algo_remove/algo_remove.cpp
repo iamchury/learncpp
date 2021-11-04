@@ -14,6 +14,7 @@ void print(Iter begin, Iter end) {
 }
 int main() {
     std::vector<int> vec;
+    std::vector<int>::iterator itr;
     vec.push_back(5);
     vec.push_back(3);
     vec.push_back(1);
@@ -22,10 +23,18 @@ int main() {
     vec.push_back(4);
 
     std::cout << "처음 vec 상태 ------" << std::endl;
+    std::cout << "Vector size : " << vec.size() << std::endl;
     print(vec.begin(), vec.end());
 
     std::cout << "벡터에서 값이 3 인 원소 제거 ---" << std::endl;
-    vec.erase(std::remove(vec.begin(), vec.end(), 3), vec.end());
+    //vec.erase(std::remove(vec.begin(), vec.end(), 3), vec.end());
+    itr= std::remove(vec.begin(), vec.end(), 3);
+    std::cout << "Vector size : " << vec.size() << std::endl;
+    print(vec.begin(), vec.end());
+
+    std::cout << "벡터에서 값이 3 인 원소 erased ---" << std::endl;
+    vec.erase(itr, vec.end());
+    std::cout << "Vector size : " << vec.size() << std::endl;
     print(vec.begin(), vec.end());
 }
 
